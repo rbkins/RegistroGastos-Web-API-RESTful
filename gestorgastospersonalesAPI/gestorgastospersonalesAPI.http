@@ -1,0 +1,6 @@
+@gestorgastospersonalesAPI_HostAddress = http://localhost:5157
+
+GET {{gestorgastospersonalesAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
