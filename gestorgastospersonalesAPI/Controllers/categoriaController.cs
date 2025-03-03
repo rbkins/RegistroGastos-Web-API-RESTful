@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace gestorgastospersonalesAPI.Controllers
 {
     [Route("api/categoria")]
-    [Authorize]
+    
     [ApiController]
     public class categoriaController : ControllerBase
     {
@@ -33,6 +33,7 @@ namespace gestorgastospersonalesAPI.Controllers
         }
 
         [HttpPost]
+        [Route("Nuevo")]
         public async Task Post([FromBody] categoriaModel parametros)
         {
 
