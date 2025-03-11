@@ -117,9 +117,10 @@ namespace gestorgastospersonalesAPI.Data
         }
 
 
-        public async Task<int?> obteneridcategoria(int IDCATEGORIA) {
+        public async Task<categoriaModel?> obteneridcategoria(int IDCATEGORIA)
+        {
+            categoriaModel? categoria = null;
 
-            int? categoriaId = null;  // Usamos Nullable para permitir valores nulos
             using (var sql = new SqlConnection(cn.getconnection()))
             {
                 using (var cmd = new SqlCommand("sp_obtenercategoria", sql))
@@ -132,15 +133,19 @@ namespace gestorgastospersonalesAPI.Data
                     {
                         if (await reader.ReadAsync())
                         {
-                            categoriaId = reader.IsDBNull(reader.GetOrdinal("IDCATEGORIA")) ? null : reader.GetInt32(reader.GetOrdinal("IDCATEGORIA"));
+                            categoria = new categoriaModel
+                            {
+                                IDCATEGORIA = reader.GetInt32(reader.GetOrdinal("IDCATEGORIA")),
+                                NOMBRE = reader.GetString(reader.GetOrdinal("NOMBRE")),
+                                TIPO = reader.GetString(reader.GetOrdinal("TIPO"))
+                            };
                         }
                     }
                 }
             }
 
-            return categoriaId;
-
-
+            return categoria;
         }
+
     }
 }

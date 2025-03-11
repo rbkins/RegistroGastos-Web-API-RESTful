@@ -21,7 +21,21 @@ namespace gestorgastospersonalesAPI.Controllers
             return listar;
         }
 
-        [HttpPut("{IDCATEGORIA}")]
+        [HttpGet("Obtener/{IDCATEGORIA}")]
+        public async Task<ActionResult<categoriaModel>> obteneridctegoria(int IDCATEGORIA) {
+
+            var function = new Dcategoria();
+            var categoriaid = await function.obteneridcategoria(IDCATEGORIA);
+            if (categoriaid == null)
+            {
+                return NotFound("No se encontró la categoría con ese ID.");
+            }
+
+            return Ok(categoriaid);
+
+        }
+
+        [HttpPut("editar/{IDCATEGORIA}")]
         public async Task<ActionResult> Put(int IDCATEGORIA, [FromBody] categoriaModel modelo)
         {
 
