@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace gestorgastospersonalesAPI.Controllers
 {
     [Route("api/transaccion")]
-    [Authorize]
+    //[Authorize]
     [ApiController]
     public class transaccionController : ControllerBase
     {

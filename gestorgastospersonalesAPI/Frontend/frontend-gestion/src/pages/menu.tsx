@@ -1,6 +1,6 @@
 // src/components/Menu.tsx
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import "./menu.css";
 
 const Menu: React.FC = () => {
@@ -22,21 +22,21 @@ const Menu: React.FC = () => {
                 <span>Inicio</span>
               </Link>
               <Link
-                to="/traffic"
+                to="/transaccion"
                 className="list-group-item list-group-item-action py-2 ripple"
               >
                 <i className="fas fa-chart-area fa-fw me-3"></i>
                 <span>Transacciones</span>
               </Link>
               <Link
-                to="/password"
+                to="/categoria"
                 className="list-group-item list-group-item-action py-2 ripple"
               >
                 <i className="fas fa-lock fa-fw me-3"></i>
                 <span>Categorias</span>
               </Link>
               <Link
-                to="/analytics"
+                to="/categoria"
                 className="list-group-item list-group-item-action py-2 ripple"
               >
                 <i className="fas fa-chart-line fa-fw me-3"></i>
@@ -210,7 +210,8 @@ const Menu: React.FC = () => {
       {/* Main content */}
       <main style={{ marginTop: "58px" }}>
         <div className="container pt-4">
-          {/* Aquí va el contenido principal de tu aplicación */}
+          <Outlet />{" "}
+          {/* Aquí se renderizará el contenido de las rutas anidadas */}
         </div>
       </main>
     </div>

@@ -1,0 +1,31 @@
+/* Asegura que la tabla ocupe el 100% del ancho */
+table.dataTable {
+  width: 100% !important;
+  margin: 0 auto;
+}
+
+/* Estilos para la barra de búsqueda */
+.dataTables_filter input {
+  margin-left: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+/* Estilos para la paginación */
+.dataTables_paginate .paginate_button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.dataTables_paginate .paginate_button:hover {
+  background-color: #f8f9fa;
+}
+
+/* Estilos para el texto de información */
+.dataTables_info {
+  margin-top: 10px;
+}
