@@ -10,18 +10,22 @@ namespace gestorgastospersonalesAPI.Data
 
         connectionBD cn = new connectionBD();
 
-        public async Task<List<categoriaModel>> Listarcategoria()
+        public async Task<List<categoriaModel>> Listarcategoria(int idUsuario)
         {
 
             var lis = new List<categoriaModel>();
             using (var sql = new SqlConnection(cn.getconnection()))
             {
 
-                using (var cmd = new SqlCommand("SP_LISTARCATEGORIA", sql))
+                using (var cmd = new SqlCommand("sp_listarcategoria2", sql))
                 {
+
 
                     await sql.OpenAsync();
                     cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@IDUSUARIO", idUsuario);
+
                     using (var item = await cmd.ExecuteReaderAsync())
                     {
 
@@ -54,12 +58,13 @@ namespace gestorgastospersonalesAPI.Data
             {
 
 
-                using (var cmd = new SqlCommand("SP_INSERTARCATEGORIA", sql))
+                using (var cmd = new SqlCommand("SP_INSERTARCATEGORIA2", sql))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@NOMBRE", modelo.NOMBRE);
                     cmd.Parameters.AddWithValue("@TIPO", modelo.TIPO);
+                    cmd.Parameters.AddWithValue("IDUSUARIO", modelo.IDUSUARIO);
                     
                     await sql.OpenAsync();
                     await cmd.ExecuteReaderAsync();

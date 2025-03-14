@@ -12,15 +12,17 @@ namespace gestorgastospersonalesAPI.Data
 
         connectionBD cn = new connectionBD();
 
-        public async Task<List<transaccionModel>> ListarTransaccion() { 
+        public async Task<List<transaccionModel>> ListarTransaccion(int idUsuario) { 
         
             var lis = new List<transaccionModel>();
             using (var sql = new SqlConnection(cn.getconnection())) {
 
-                using (var cmd = new SqlCommand("SP_LISTARTRANSACCION", sql)) { 
+                using (var cmd = new SqlCommand("SP_LISTARTRANSACCION2", sql)) { 
                 
                     await sql.OpenAsync();
                     cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@IDUSUARIO", idUsuario);
                     using (var item = await cmd.ExecuteReaderAsync()) {
 
                         while (await item.ReadAsync()) { 
@@ -48,7 +50,7 @@ namespace gestorgastospersonalesAPI.Data
         
         }
 
-        public async Task insertartransaccion(transaccionModel modelo) {
+        public async Task insertartransaccion(transaccionModelDTO modelo) {
 
             using (var sql = new SqlConnection(cn.getconnection())) {
 

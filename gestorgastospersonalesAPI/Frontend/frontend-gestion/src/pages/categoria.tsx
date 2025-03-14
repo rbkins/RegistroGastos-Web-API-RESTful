@@ -22,7 +22,10 @@ export const Categoria: React.FC = () => {
   // Función para obtener los datos de la API
   const listarcategoria = async () => {
     try {
-      const response = await fetch("https://localhost:7274/api/categoria");
+      const token = localStorage.getItem("token");
+      const response = await fetch("https://localhost:7274/api/categoria", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (!response.ok) {
         throw new Error("Error al cargar datos");
       }
@@ -39,12 +42,14 @@ export const Categoria: React.FC = () => {
   // Función para enviar los datos de la nueva categoría
   const crearCategoria = async (nombre: string, tipo: string) => {
     try {
+      const token = localStorage.getItem("token");
       const response = await fetch(
         "https://localhost:7274/api/categoria/Nuevo",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ nombre, tipo }), // Envía los datos en formato JSON
         }

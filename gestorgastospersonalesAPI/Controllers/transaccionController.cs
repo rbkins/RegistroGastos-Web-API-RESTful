@@ -1,4 +1,5 @@
-﻿using gestorgastospersonalesAPI.Data;
+﻿using System.Security.Claims;
+using gestorgastospersonalesAPI.Data;
 using gestorgastospersonalesAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -7,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace gestorgastospersonalesAPI.Controllers
 {
     [Route("api/transaccion")]
-    //[Authorize]
+    [Authorize]
     [ApiController]
     public class transaccionController : ControllerBase
     {
@@ -15,8 +16,10 @@ namespace gestorgastospersonalesAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<transaccionModel>>> get() {
 
+            var idUsuario = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
             var function = new Dtransaccion();
-            var listar = await function.ListarTransaccion();
+            var listar = await function.ListarTransaccion(idUsuario);
             return listar;
         }
 
@@ -31,9 +34,10 @@ namespace gestorgastospersonalesAPI.Controllers
         }
 
         [HttpPost]
-        public async Task Post([FromBody] transaccionModel parametros)
+        public async Task Post([FromBody] transaccionModelDTO parametros)
         {
-
+            var idUsuario = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            parametros.IDUSUARIO = idUsuario;
             var function = new Dtransaccion();
             await function.insertartransaccion(parametros);
 

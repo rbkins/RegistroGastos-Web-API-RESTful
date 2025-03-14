@@ -1,4 +1,5 @@
-﻿using gestorgastospersonalesAPI.Data;
+﻿using System.Security.Claims;
+using gestorgastospersonalesAPI.Data;
 using gestorgastospersonalesAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -7,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace gestorgastospersonalesAPI.Controllers
 {
     [Route("api/categoria")]
-    
+    [Authorize]
     [ApiController]
     public class categoriaController : ControllerBase
     {
@@ -16,8 +17,10 @@ namespace gestorgastospersonalesAPI.Controllers
         public async Task<ActionResult<List<categoriaModel>>> get()
         {
 
+            var idUsuario = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
             var function = new Dcategoria();
-            var listar = await function.Listarcategoria();
+            var listar = await function.Listarcategoria(idUsuario);
             return listar;
         }
 
@@ -51,6 +54,8 @@ namespace gestorgastospersonalesAPI.Controllers
         public async Task Post([FromBody] categoriaModel parametros)
         {
 
+            var idUsuario = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            parametros.IDUSUARIO = idUsuario;
             var function = new Dcategoria();
             await function.insertarcategoria(parametros);
 
